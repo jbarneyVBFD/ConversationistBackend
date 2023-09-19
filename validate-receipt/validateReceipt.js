@@ -1,12 +1,6 @@
-require('dotenv').config();
 const express = require('express');
 const request = require('request');
-const bodyParser = require('body-parser');
-
 const router = express.Router();
-
-// Allow parsing of POST request bodies
-router.use(bodyParser.json());
 
 // Define the route for receipt validation
 router.post('/validate-receipt', (req, res) => {
