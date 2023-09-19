@@ -1,0 +1,23 @@
+{
+  "name": "conversationistbackend",
+  "version": "1.0.0",
+  "description": "backend for ios app conversationist",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"test command\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jbarneyVBFD/ConversationistBackend.git"
+  },
+  "author": "John Barney",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jbarneyVBFD/ConversationistBackend/issues"
+  },
+  "homepage": "https://github.com/jbarneyVBFD/ConversationistBackend#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
