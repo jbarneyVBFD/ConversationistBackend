@@ -3,13 +3,13 @@ const express = require('express');
 const request = require('request');
 const bodyParser = require('body-parser');
 
-const app = express();
+const router = express.Router();
 
 // Allow parsing of POST request bodies
-app.use(bodyParser.json());
+router.use(bodyParser.json());
 
 // Define the route for receipt validation
-app.post('/validate-receipt', (req, res) => {
+router.post('/validate-receipt', (req, res) => {
     const receiptData = req.body.receipt_data;
 
     if (!receiptData) {
@@ -45,8 +45,5 @@ app.post('/validate-receipt', (req, res) => {
         }
     });
 });
-// Start the server
-const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
+
+module.exports = router;
