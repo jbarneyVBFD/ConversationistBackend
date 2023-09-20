@@ -32,6 +32,7 @@ router.post('/', (req, res) => {
         // includes a valid subscription. For simplicity's sake, I'll assume if 
         // the Apple response status is 0 (meaning the receipt is valid), then 
         // the subscription is considered valid (this may not be accurate for your needs).
+        
         if (body && body.status === 0) {
             res.send({ valid: true, isSubscribed: true });
         } else {
