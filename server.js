@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
-const validateReceiptRoute = require('./validateReceipt');
+const validateReceiptRoute = require('./validate-receipt/validateReceipt');
 
 const app = express();
 

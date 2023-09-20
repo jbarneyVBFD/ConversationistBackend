@@ -3,7 +3,7 @@ const request = require('request');
 const router = express.Router();
 
 // Define the route for receipt validation
-router.post('/validate-receipt', (req, res) => {
+router.post('/', (req, res) => {
     const receiptData = req.body.receipt_data;
 
     if (!receiptData) {
