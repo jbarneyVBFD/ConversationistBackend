@@ -20,7 +20,7 @@ router.post('/', (req, res) => {
         url: validationURL,
         json: {
             'jws-representation': jwsRepresentation,
-            'password': process.env.SHARED_SECRET, // Assumed this is still required. If not, remove.
+            'password': process.env.SHARED_SECRET, 
         }
     }, (error, response, body) => {
         if (error) {
@@ -29,7 +29,7 @@ router.post('/', (req, res) => {
 
         // Handle the validation result from Apple
         if (body && body.status === 0) {
-            // You can add more checks here to validate the actual transaction details
+            // Add more checks here to validate the actual transaction details
             // such as checking entitlements or transaction dates.
             res.send({ valid: true, isEntitled: true });
         } else {
