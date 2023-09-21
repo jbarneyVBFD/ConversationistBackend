@@ -2,41 +2,38 @@ const express = require('express');
 const request = require('request');
 const router = express.Router();
 
-// Define the route for receipt validation
+// Define the route for transaction validation
 router.post('/', (req, res) => {
-    const receiptData = req.body.receipt_data;
+    const jwsRepresentation = req.body.jwsRepresentation;
 
-    if (!receiptData) {
-        return res.status(400).send({ error: 'Receipt data is missing.' });
+    if (!jwsRepresentation) {
+        return res.status(400).send({ error: 'Transaction JWS representation is missing.' });
     }
 
+    // Determine the validation URL based on the environment
     const validationURL = process.env.NODE_ENV === 'production' 
-        ? 'https://buy.itunes.apple.com/verifyReceipt' 
-        : 'https://sandbox.itunes.apple.com/verifyReceipt';
+        ? 'https://buy.itunes.apple.com/verifyTransaction' 
+        : 'https://sandbox.itunes.apple.com/verifyTransaction';  // Update this if Apple provides different endpoints for transactions
 
-    // Send the receipt data to Apple for validation
+    // Send the JWS representation to Apple for validation
     request.post({
         url: validationURL,
         json: {
-            'receipt-data': receiptData,
-            'password': process.env.SHARED_SECRET,
+            'jws-representation': jwsRepresentation,
+            'password': process.env.SHARED_SECRET, // Assumed this is still required. If not, remove.
         }
     }, (error, response, body) => {
         if (error) {
-            return res.status(500).send({ error: 'Failed to validate receipt with Apple.' });
+            return res.status(500).send({ error: 'Failed to validate transaction with Apple.' });
         }
 
-        // Respond with the validation result from Apple
-        // Note: the actual Apple response contains a lot more information. 
-        // You would typically parse that information to determine whether the receipt 
-        // includes a valid subscription. For simplicity's sake, I'll assume if 
-        // the Apple response status is 0 (meaning the receipt is valid), then 
-        // the subscription is considered valid (this may not be accurate for your needs).
-        
+        // Handle the validation result from Apple
         if (body && body.status === 0) {
-            res.send({ valid: true, isSubscribed: true });
+            // You can add more checks here to validate the actual transaction details
+            // such as checking entitlements or transaction dates.
+            res.send({ valid: true, isEntitled: true });
         } else {
-            res.send({ valid: false, isSubscribed: false });
+            res.send({ valid: false, isEntitled: false });
         }
     });
 });
